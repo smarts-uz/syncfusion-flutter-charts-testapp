@@ -1,5 +1,15 @@
+import 'package:charts_flutter/column_chart.dart';
+import 'package:charts_flutter/doughnut%20_chart.dart';
+import 'package:charts_flutter/pie_chart.dart';
+import 'package:charts_flutter/radial_chart.dart';
+import 'package:charts_flutter/scatter_chart.dart';
+import 'package:charts_flutter/spline_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'area_chart.dart';
+import 'fast_chart.dart';
+import 'line_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Syncfusion Charts',
-      home:  MyHomePage(title: 'Syncfusion Charts'),
+      home: MyHomePage(title: 'Syncfusion Charts'),
     );
   }
 }
@@ -30,36 +40,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Container(
-                child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    series: <ChartSeries>[
-                      LineSeries<ChartData, String>(
-                          dataSource: [
-                            ChartData('Jan', 35, Colors.red),
-                            ChartData('Feb', 28, Colors.green),
-                            ChartData('Mar', 34, Colors.blue),
-                            ChartData('Apr', 32, Colors.pink),
-                            ChartData('May', 40, Colors.black)
-                          ],
-                          // Bind the color for all the data points from the data source
-                          pointColorMapper:(ChartData data, _) => data.color,
-                          xValueMapper: (ChartData data, _) => data.x,
-                          yValueMapper: (ChartData data, _) => data.y
-                      )
-                    ]
-                )
-            )
-        )
+    return const Scaffold(
+      body: Column(
+        children: [
+          Row(
+            children: [
+              LineChart(),
+              AreChart(),
+              SplineChart(),
+              ColumnChart(),
+              PieCharts(),
+            ],
+          ),
+          Row(
+            children: [
+              DoughnutChart(),
+              RadialChart(),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
 
-
 class ChartData {
   ChartData(this.x, this.y, this.color);
+
   final String x;
   final double y;
   final Color color;
